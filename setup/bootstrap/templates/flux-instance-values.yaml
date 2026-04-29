@@ -11,7 +11,7 @@ instance:
   sync:
     kind: GitRepository
     url: https://github.com/LeoEliot/k8s-lab.git
-    ref: refs/heads/master
+    ref: refs/heads/main
     path: setup/flux/cluster
     pullSecret: ghcr-auth
     interval: 1h
