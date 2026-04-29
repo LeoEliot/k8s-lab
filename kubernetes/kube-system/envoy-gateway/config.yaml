@@ -40,7 +40,7 @@ spec:
     group: gateway.envoyproxy.io
     kind: EnvoyProxy
     name: envoy
-    namespace: network
+    namespace: kube-system
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -131,10 +131,10 @@ metadata:
 spec:
   parentRefs:
     - name: envoy-external
-      namespace: network
+      namespace: kube-system
       sectionName: http
     - name: envoy-internal
-      namespace: network
+      namespace: kube-system
       sectionName: http
   rules:
     - filters:
@@ -154,7 +154,7 @@ spec:
   jobLabel: envoy-proxy
   namespaceSelector:
     matchNames:
-      - network
+      - kube-system
   podMetricsEndpoints:
     - port: metrics
       path: /stats/prometheus
@@ -179,7 +179,7 @@ spec:
   jobLabel: envoy-gateway
   namespaceSelector:
     matchNames:
-      - network
+      - kube-system
   selector:
     matchLabels:
       control-plane: envoy-gateway
