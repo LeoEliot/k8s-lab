@@ -58,7 +58,7 @@ spec:
         type: hostPath
         hostPath: 
           path: /home/malef/media
-          type: DirectoryOrCreate 
+          type: Directory
         globalMounts:
           - path: /media
       tmp:
