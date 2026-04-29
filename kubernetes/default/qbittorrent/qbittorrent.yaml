@@ -58,7 +58,7 @@ spec:
         existingClaim: qbittorrent-config
       media:
         type: hostPath
-        path: /home/malef/media
+        hostPath: /home/malef/media
         globalMounts:
           - path: /media
       tmp:
