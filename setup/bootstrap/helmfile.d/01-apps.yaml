@@ -1,0 +1,14 @@
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  waitForJobs: true
+  timeout: 600
+  force: true
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: oci://quay.io/cilium/charts/cilium
+    version: 1.19.3
+    values:
+      - ../templates/cilium-values.yaml.gotmpl
