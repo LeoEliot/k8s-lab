@@ -51,14 +51,14 @@ spec:
               capabilities: {drop: ["ALL"]}
               readOnlyRootFilesystem: true
 
-    # Note: If downloading very large torrents it might be worth using NFS for your download directory.
-    # Beware if you are downloading torrents directly to a ZFS dataset that dataset will accrue fragmentation.
     persistence:
       config:
         existingClaim: qbittorrent-config
       media:
         type: hostPath
-        hostPath: /home/malef/media
+        hostPath: 
+          path: /home/malef/media
+          type: DirectoryOrCreate 
         globalMounts:
           - path: /media
       tmp:
