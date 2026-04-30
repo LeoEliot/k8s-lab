@@ -29,6 +29,7 @@ spec:
               repository: jellyfin/jellyfin
               tag: latest
             env:
+              TZ: "Europe/Moscow"
             resources:
               requests:
                 cpu: 100m
