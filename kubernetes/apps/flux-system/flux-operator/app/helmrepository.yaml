@@ -11,4 +11,4 @@ spec:
     operation: copy
   ref:
     tag: 0.48.0
-  url: oci://ghcr.io/controlplaneio-fluxcd/charts/fluxcd-operator
+  url: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
