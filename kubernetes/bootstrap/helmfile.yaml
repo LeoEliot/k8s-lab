@@ -1,0 +1,16 @@
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  timeout: 300
+  waitForJobs: true
+
+releases:
+  - name: flux-operator
+    namespace: flux-system
+    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
+    version: 0.48.0
+    values:
+      - ../../kubernetes/apps/flux-system/flux-operator/app/resources/values.yaml
+
+
+  
