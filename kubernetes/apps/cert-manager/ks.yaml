@@ -5,7 +5,7 @@ metadata:
   namespace: cert-manager
 spec:
   interval: 1h
-  path: ./kubernetes/apps/kube-system/cert-manager/app
+  path: ./kubernetes/apps/cert-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
