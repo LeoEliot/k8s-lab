@@ -119,7 +119,8 @@ spec:
       transcode:
         type: emptyDir
       data:
-        type: 192.168.1.11
+        type: nfs
+        server: 192.168.1.11
         path: /data/nfs/Anime
         globalMounts:
           - path: /data
