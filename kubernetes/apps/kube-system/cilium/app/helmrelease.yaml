@@ -10,11 +10,11 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:
-    enabled: true
-    bbr: true
+      enabled: true
+      bbr: true
     bpf:
-    datapathMode: netkit
-    masquerade: true
+      datapathMode: netkit
+      masquerade: true
     bpfClockProbe: true
     cni:
       exclusive: false
