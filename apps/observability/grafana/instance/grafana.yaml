@@ -29,7 +29,6 @@ spec:
     server:
       enable_gzip: "true"
       root_url: https://grafana.malef.lan
-  disableDefaultAdminSecret: true
   deployment:
     spec:
       strategy:
