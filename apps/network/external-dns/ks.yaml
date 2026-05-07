@@ -1,0 +1,16 @@
+kind: Kustomization
+metadata:
+  name: external-dns
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: external-dns
+  interval: 1h
+  path: "./apps/network/external-dns/app"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: network
+  timeout: 5m
