@@ -8,7 +8,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.3-202604270853-standard-trixie
   storage:
     size: 30Gi
-    storageClass: openebs-hostpath
+    storageClass: local-path
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
