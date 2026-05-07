@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: jellyfin
+  values:
+    controllers:
+      jellyfin:
+        replicas: 1
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.11.8
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 8000Mi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [44, 10000]
+        seccompProfile: { type: RuntimeDefault }
+
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 192.168.1.17
+        ports:
+          http:
+            port: &port 8096
+          discovery:
+            port: 7359
+            protocol: UDP
+
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.malef.lan"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /cache
+
+      media:
+        type: nfs
+        server: 192.168.1.11
+        path: /data/nfs/Anime
+        globalMounts:
+          - path: /media
+
+      config:
+        existingClaim: jellyfin-config
+        advancedMounts:
+          jellyfin:
+            app:
+              - path: /config
