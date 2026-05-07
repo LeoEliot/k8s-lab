@@ -11,3 +11,4 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./postgres18/ks.yaml
   - ./ext-postgres-operator/ks.yaml
+  - ./dragonfly/ks.yaml
