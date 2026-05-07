@@ -1,0 +1,128 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: forgejo
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: forgejo
+  values:
+    strategy:
+      type: Recreate
+
+    image:
+      rootless: true
+      registry: code.forgejo.org
+      repository: forgejo/forgejo
+      tag: 15.0.1-rootless
+
+    service:
+      http:
+        port: 3000
+      ssh:
+        type: ClusterIP
+        port: 22
+
+    httpRoute:
+      enabled: true
+      hostnames:
+        - forgejo.malef.lan
+      parentRefs:
+        - name: internal
+          namespace: network
+
+    persistence:
+      enabled: true
+      create: false
+      claimName: forgejo-data
+
+    signing:
+      enabled: false
+      existingSecret: forgejo-gpg-key
+
+    gitea:
+      admin:
+        existingSecret: forgejo-secret
+
+      config:
+        cache:
+          ENABLED: true
+          ADAPTER: redis
+          HOST: redis://dragonfly.databases.svc.cluster.local:6379/10
+
+        actions:
+          ENABLED: true
+
+        database:
+          DB_TYPE: postgres
+          SSL_MODE: disable
+
+        indexer:
+          ISSUE_INDEXER_TYPE: bleve
+          REPO_INDEXER_ENABLED: true
+
+        lfs:
+          PATH: /data/git/lfs
+
+        mailer:
+          ENABLED: false
+
+        repository:
+          DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls,repo.actions
+          DISABLED_REPO_UNITS: repo.ext_wiki,repo.ext_issues
+
+        repository.pull-request:
+          DEFAULT_MERGE_STYLE: squash
+
+        server:
+          ROOT_URL: https://forgejo.malef.lan
+          DISABLE_SSH: true
+          APP_DATA_PATH: /data/gitea
+
+        service:
+          DISABLE_REGISTRATION: true
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          ENABLE_INTERNAL_SIGNIN: true
+          ENABLE_PASSWORD_SIGNIN_FORM: true
+          SHOW_REGISTRATION_BUTTON: true
+
+        session:
+          PROVIDER: redis
+          PROVIDER_CONFIG: redis://dragonfly.databases.svc.cluster.local:6379/11
+          SESSION_LIFETIME: 2678400
+
+        queue:
+          TYPE: redis
+          CONN_STR: redis://dragonfly.databases.svc.cluster.local:6379/12
+
+
+      additionalConfigFromEnvs:
+        - name: FORGEJO__server__ROOT_URL
+          value: "https://forgejo.malef.lan"
+        - valueFrom:
+            secretKeyRef:
+              name: database-forgejo-user
+              key: HOST
+          name: FORGEJO__database__HOST
+        - valueFrom:
+            secretKeyRef:
+              name: database-forgejo-user
+              key: DATABASE_NAME
+          name: FORGEJO__database__NAME
+        - valueFrom:
+            secretKeyRef:
+              name: database-forgejo-user
+              key: LOGIN
+          name: FORGEJO__database__USER
+        - valueFrom:
+            secretKeyRef:
+              name: database-forgejo-user
+              key: PASSWORD
+          name: FORGEJO__database__PASSWD
+
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
