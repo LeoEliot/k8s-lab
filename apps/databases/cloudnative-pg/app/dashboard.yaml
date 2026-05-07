@@ -1,0 +1,16 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cloudnative-pg
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+  configMapRef:
+    name: cnpg-dashboards
+    key: cloudnative-pg.json
