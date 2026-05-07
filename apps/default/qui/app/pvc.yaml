@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: qbittorrent
+  name: qui
 spec:
   storageClassName: local-path
   accessModes:
