@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./ippool.yaml
   - ./l2policy.yaml
+  - ./dashboards.yaml
