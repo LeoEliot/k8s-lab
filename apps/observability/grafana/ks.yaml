@@ -5,9 +5,6 @@ metadata:
   name: grafana-operator
   namespace: observability
 spec:
-  dependsOn:
-    - name: external-secrets
-      namespace: security
   interval: 1h
   path: ./apps/observability/grafana/app
   prune: true
