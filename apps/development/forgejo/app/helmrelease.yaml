@@ -30,7 +30,7 @@ spec:
       hostnames:
         - forgejo.malef.lan
       parentRefs:
-        - name: internal
+        - name: envoy-internal
           namespace: network
 
     persistence:
