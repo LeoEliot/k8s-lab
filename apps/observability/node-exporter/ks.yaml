@@ -5,6 +5,7 @@ metadata:
 spec:
   commonMetadata:
     labels:
+      release: kube-prometheus-stack
       app.kubernetes.io/name: node-exporter
   interval: 1h
   path: "./apps/observability/node-exporter/app"
