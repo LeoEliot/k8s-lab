@@ -26,3 +26,7 @@ spec:
       memory: 512Mi
     limits:
       memory: 1Gi
+  serviceSpec:
+    type: LoadBalancer
+    annotations:
+      lbipam.cilium.io/ips: 192.168.1.19

@@ -18,7 +18,3 @@ spec:
         name: grafana_folder
       labels:
         name: grafana_dashboard
-    serviceSpec:
-      type: LoadBalancer
-      annotations:
-        lbipam.cilium.io/ips: 192.168.1.19
