@@ -21,9 +21,9 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        url: https://github.com/onedr0p/home-ops
+        url: https://github.com/LeoEliot/k8s-lab
         ref: refs/heads/main
-        path: kubernetes/flux/cluster
+        path: apps
         interval: 1h
       kustomize:
         patches:
