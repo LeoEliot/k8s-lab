@@ -10,4 +10,4 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./postgres18/ks.yaml
-  - ./ext-postgres-operator
+  - ./ext-postgres-operator/ks.yaml
