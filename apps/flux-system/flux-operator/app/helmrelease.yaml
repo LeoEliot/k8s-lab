@@ -18,5 +18,12 @@ spec:
             username: flux
             groups:
               - flux-admin
+      httpRoute:
+        enabled: true
+        hostnames:
+          - flux.malef.lan
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
       networkPolicy:
         create: false
