@@ -151,9 +151,6 @@ spec:
                   --name k8s-runner \
                   --labels "default:k8spod:/config/podspec-default.yaml" \
                   --no-interactive
-            envFrom:
-              - secretRef:
-                  name: forgejo-runner-secret
 
         containers:
           runner:
